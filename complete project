@@ -1,0 +1,184 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  2 05:58:50 2020
+
+@author: yash gagneja
+"""
+
+import tkinter 
+from tkinter import *
+import random
+questions =[
+        "question 1",
+        "question 2",
+        "question 3",
+         "question 4",
+        "question 5",
+        "question 6",
+        "question 7",
+        "question 8",
+        "question 9",
+        "question 10",
+        ]
+answers_choice=[
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        ["1","2","3","4"],
+        
+        ]
+answers=[1,2,3,1,2,3,1,2,3,3]
+user_answer=[]
+indexes=[]
+def gen():
+    global indexes
+    while(len(indexes)<5):
+        x = random.randint(0,9)
+        if x in indexes:
+            continue
+        else:
+            indexes.append(x)
+def showresult(score):
+    lblquestion.destroy()
+    r1.destroy()
+    r2.destroy()
+    r3.destroy()
+    r4.destroy()
+    Labelresulttext=Label(
+            root,
+            text="Correct questions are "+str(score),
+            font=("Consolas",20),
+            )
+    Labelresulttext.pack(pady=10)
+    if(score >= 3):
+        Labelresulttext.configure(text="Good "+"correct ques are " + str(score))
+    else:
+        Labelresulttext.configure(text="work harder " + "correct ques are " + str(score))
+def calc():
+    global indexes,user_answer,answers
+    x=0
+    score=0
+    for i in indexes:
+        if user_answer[x] == answers[i]:
+            score=score+1
+        x+=1
+    showresult(score)
+ques=1
+def selected():
+    global radiovar,user_answer
+    global lblquestion,r1,r2,r3,r4
+    global ques
+    x=radiovar.get()
+    user_answer.append(x)
+    radiovar.set(-1)
+    if ques<5:
+        lblquestion.config(text=questions[indexes[ques]])
+        r1['text']=answers_choice[indexes[ques]][0]
+        r2['text']=answers_choice[indexes[ques]][1]
+        r3['text']=answers_choice[indexes[ques]][2]
+        r4['text']=answers_choice[indexes[ques]][3]
+        ques+=1
+    else:
+        calc()
+        
+        
+        
+    
+def startquiz():
+    global lblquestion,r1,r2,r3,r4
+    lblquestion=Label(
+            root,
+            text=questions[indexes[0]] ,
+            font=("Consolas",15),
+            width=500,
+            justify="center",
+            wraplength=400,
+            background="#ffffff",)
+    lblquestion.pack(pady=(100,30))
+    global radiovar
+    radiovar=IntVar()
+    radiovar.set(-1)
+    r1=Radiobutton(
+            root,
+            text=answers_choice[indexes[0]][0],
+            font=("Times"),
+            value=0,variable=radiovar,
+            background="#ffffff",
+            command=selected)
+    r1.pack(pady=5) 
+    r2=Radiobutton(
+            root,
+            text=answers_choice[indexes[0]][1],
+            font=("Times"),
+            value=1,variable=radiovar,
+            background="#ffffff",
+            command=selected)
+    r2.pack(pady=5) 
+    r3=Radiobutton(
+            root,
+            text=answers_choice[indexes[0]][2],
+            font=("Times"),
+            value=2,variable=radiovar,
+            background="#ffffff",
+            command=selected)
+    r3.pack(pady=5) 
+    r4=Radiobutton(
+            root,
+            text=answers_choice[indexes[0]][3],
+            font=("Times"),
+            value=3,variable=radiovar,
+            background="#ffffff",
+            command=selected)
+    r4.pack(pady=5) 
+def startispressed():
+    labeltext.destroy()
+    lblrules.destroy()
+    lblinstruction.destroy()
+    btnstart.destroy()
+    gen()
+    startquiz()
+root = tkinter.Tk()
+root.title("Jee exam preparation")
+root.geometry("700x600")
+root.config(background="#ffffff")
+root.resizable(0,0)
+#img1=PhotoImage(file = g"C:\Users\yash gagneja\Desktop\project\562c7737273eb_thumb900.png")
+labeltext=Label(root,
+                text="JEE MAINS PAPER",
+                font=("Comic Sans MS",24,"bold"),
+                background="#ffffff"
+        )
+labeltext.pack(pady=(0,50))
+btnstart=Button(
+        root,
+        text="Start",
+        font=("Times",15,"bold"),
+        command = startispressed,
+        
+        )
+btnstart.pack()  
+lblinstruction=Label(
+        root,
+        text="Read the rules and\n Click start once you are ready",
+         background="#ffffff"
+        )
+lblinstruction.pack(pady=(0,50))
+lblrules=Label(
+        root,
+        text="*THis quiz contains 10 questions\n *YOu will get 20 min to solve the paper\n*Once you select a choice that will be final\n*hence think before selecting",
+        width = 100,
+        font=("Times",10),
+        background="#000000",
+        foreground="#FACA2F",
+        )
+lblrules.pack()
+
+
+
+root.mainloop()
