@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  2 05:58:50 2020
+
+@author: yash gagneja
+"""
+
+import tkinter 
+from tkinter import *
+def startispressed():
+    labeltext.destroy()
+    lblrules.destroy()
+    lblinstruction.destroy()
+    btnstart.destroy()
+root = tkinter.Tk()
+root.title("Jee exam preparation")
+root.geometry("700x600")
+root.config(background="#ffffff")
+root.resizable(0,0)
+#img1=PhotoImage(file = g"C:\Users\yash gagneja\Desktop\project\562c7737273eb_thumb900.png")
+labeltext=Label(root,
+                text="JEE MAINS PAPER",
+                font=("Comic Sans MS",24,"bold"),
+                background="#ffffff"
+        )
+labeltext.pack(pady=(0,50))
+btnstart=Button(
+        root,
+        text="Start",
+        font=("Times",15,"bold"),
+        command = startispressed,
+        
+        )
+btnstart.pack()  
+lblinstruction=Label(
+        root,
+        text="Read the rules and\n Click start once you are ready",
+         background="#ffffff"
+        )
+lblinstruction.pack(pady=(0,50))
+lblrules=Label(
+        root,
+        text="*THis quiz contains 10 questions\n *YOu will get 20 min to solve the paper\n*Once you select a choice that will be final\n*hence think before selecting",
+        width = 100,
+        font=("Times",10),
+        background="#000000",
+        foreground="#FACA2F",
+        )
+lblrules.pack()
+
+
+
+root.mainloop()
